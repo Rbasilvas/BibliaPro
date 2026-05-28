@@ -69,8 +69,7 @@ export default function Header({
 
           RB
           
-          TESTE GIT
-
+        
         </div>
 
       </div>

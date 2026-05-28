@@ -1,79 +1,120 @@
 "use client";
-import Sidebar from "../components/Sidebar";
+
+import {
+  BookOpen,
+  Brain,
+  Clock3,
+  AudioLines,
+} from "lucide-react";
 
 import { motion } from "framer-motion";
 
 export default function Home() {
+
+  const cards = [
+    {
+      title: "Bíblia Inteligente",
+      description: "Leitura dinâmica e comparador de traduções.",
+      icon: <BookOpen size={30} />,
+    },
+    {
+      title: "Estudos Bíblicos",
+      description: "Conteúdos organizados por temas e doutrinas.",
+      icon: <Brain size={30} />,
+    },
+    {
+      title: "Linha do Tempo",
+      description: "Explore eventos bíblicos cronologicamente.",
+      icon: <Clock3 size={30} />,
+    },
+    {
+      title: "Player Bíblico",
+      description: "Escute a Bíblia em áudio futuramente.",
+      icon: <AudioLines size={30} />,
+    },
+  ];
+
   return (
+
     <div>
 
-      {/* SIDEBAR */}
-      <Sidebar />
+      {/* HERO */}
+      <section className="mb-14">
 
-      {/* CONTEÚDO */}
-      <section className="flex-1 p-10">
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-6xl font-bold leading-tight mb-6"
+        >
 
-        <div className="mb-10">
-          <h2 className="text-5xl font-bold">
-            Dashboard
-          </h2>
+          Plataforma Bíblica
+          <br />
+          Inteligente e Moderna
 
-          <p className="text-gray-400 mt-3 text-lg">
-            Plataforma Inteligente de Estudos Bíblicos
-          </p>
-        </div>
+        </motion.h1>
 
-        {/* CARDS */}
-        <div className="grid grid-cols-3 gap-6">
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="text-gray-400 text-xl max-w-3xl"
+        >
 
-          <motion.div
-            whileHover={{ scale: 1.03 }}
-            className="bg-[#161d2d] border border-gray-800 p-6 rounded-3xl"
-          >
-            <h3 className="text-2xl font-semibold mb-4">
-              Bíblia Inteligente
-            </h3>
+          Estude a Bíblia com recursos avançados,
+          interface premium e tecnologia moderna.
 
-            <p className="text-gray-400">
-              Pesquise palavras, temas e referências cruzadas entre traduções.
-            </p>
-          </motion.div>
+        </motion.p>
 
-          <motion.div
-            whileHover={{ scale: 1.03 }}
-            className="bg-[#161d2d] border border-gray-800 p-6 rounded-3xl"
-          >
-            <h3 className="text-2xl font-semibold mb-4">
-              Linha Cronológica
-            </h3>
+      </section>
 
-            <p className="text-gray-400">
-              Explore acontecimentos bíblicos organizados por período histórico.
-            </p>
-          </motion.div>
+      {/* CARDS */}
+      <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+
+        {cards.map((card, index) => (
 
           <motion.div
-            whileHover={{ scale: 1.03 }}
-            className="bg-[#161d2d] border border-gray-800 p-6 rounded-3xl"
+            key={card.title}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.1 }}
+            whileHover={{
+              scale: 1.03,
+            }}
+            className="
+              bg-white/5
+              backdrop-blur-lg
+              border border-white/10
+              rounded-3xl
+              p-8
+              shadow-xl
+            "
           >
-            <h3 className="text-2xl font-semibold mb-4">
-              Estudos Avançados
-            </h3>
 
-            <p className="text-gray-400">
-              Conteúdos organizados por temas teológicos e estudos modernos.
+            <div className="mb-6 text-blue-400">
+
+              {card.icon}
+
+            </div>
+
+            <h2 className="text-2xl font-semibold mb-4">
+
+              {card.title}
+
+            </h2>
+
+            <p className="text-gray-400 leading-7">
+
+              {card.description}
+
             </p>
+
           </motion.div>
 
-        </div>
-
-        {/* RODAPÉ */}
-        <div className="mt-20 text-xs text-gray-600">
-          created by : @rbasilva2026 . MIADMBJD
-        </div>
+        ))}
 
       </section>
 
     </div>
+
   );
 }
