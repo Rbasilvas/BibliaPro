@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
 import bible from "@/data/bible.json";
 
 export default function BibliaPage() {
@@ -11,11 +12,57 @@ export default function BibliaPage() {
 
   const [chapter, setChapter] = useState("1");
 
+  const [favorites, setFavorites] = useState<string[]>([]);
+
+  useEffect(() => {
+
+    const savedFavorites =
+      localStorage.getItem("biblia-favorites");
+
+    if (savedFavorites) {
+
+      setFavorites(JSON.parse(savedFavorites));
+
+    }
+
+  }, []);
+
+  function toggleFavorite(reference: string) {
+
+    let updatedFavorites: string[];
+
+    if (favorites.includes(reference)) {
+
+      updatedFavorites =
+        favorites.filter(
+          (item) => item !== reference
+        );
+
+    } else {
+
+      updatedFavorites = [
+        ...favorites,
+        reference,
+      ];
+
+    }
+
+    setFavorites(updatedFavorites);
+
+    localStorage.setItem(
+      "biblia-favorites",
+      JSON.stringify(updatedFavorites)
+    );
+
+  }
+
   const currentBook =
     bible[book as keyof typeof bible];
 
   const currentChapter =
-    currentBook[chapter as keyof typeof currentBook];
+    currentBook[
+      chapter as keyof typeof currentBook
+    ];
 
   return (
 
@@ -41,8 +88,11 @@ export default function BibliaPage() {
         <select
           value={book}
           onChange={(e) => {
+
             setBook(e.target.value);
+
             setChapter("1");
+
           }}
           className="
             bg-[#161d2d]
@@ -71,7 +121,9 @@ export default function BibliaPage() {
         {/* CAPÍTULO */}
         <select
           value={chapter}
-          onChange={(e) => setChapter(e.target.value)}
+          onChange={(e) =>
+            setChapter(e.target.value)
+          }
           className="
             bg-[#161d2d]
             border border-gray-700
@@ -81,25 +133,31 @@ export default function BibliaPage() {
           "
         >
 
-          {Object.keys(currentBook).map((chapterNumber) => (
+          {Object.keys(currentBook).map(
 
-            <option
-              key={chapterNumber}
-              value={chapterNumber}
-            >
+            (chapterNumber) => (
 
-              Capítulo {chapterNumber}
+              <option
+                key={chapterNumber}
+                value={chapterNumber}
+              >
 
-            </option>
+                Capítulo {chapterNumber}
 
-          ))}
+              </option>
+
+            )
+
+          )}
 
         </select>
 
         {/* TRADUÇÃO */}
         <select
           value={translation}
-          onChange={(e) => setTranslation(e.target.value)}
+          onChange={(e) =>
+            setTranslation(e.target.value)
+          }
           className="
             bg-[#161d2d]
             border border-gray-700
@@ -109,21 +167,31 @@ export default function BibliaPage() {
           "
         >
 
-          <option value="ARC">ARC</option>
-          <option value="NVI">NVI</option>
-          <option value="NTLH">NTLH</option>
+          <option value="ARC">
+            ARC
+          </option>
+
+          <option value="NVI">
+            NVI
+          </option>
+
+          <option value="NTLH">
+            NTLH
+          </option>
 
         </select>
 
       </div>
 
       {/* CONTEÚDO */}
-      <div className="
-        bg-[#161d2d]
-        border border-gray-800
-        rounded-3xl
-        p-8
-      ">
+      <div
+        className="
+          bg-[#161d2d]
+          border border-gray-800
+          rounded-3xl
+          p-8
+        "
+      >
 
         <h2 className="text-3xl font-semibold mb-8">
 
@@ -139,23 +207,52 @@ export default function BibliaPage() {
 
               <div
                 key={verseNumber}
-                className="border-b border-gray-800 pb-4"
+                className="
+                  border-b border-gray-800 pb-4
+                  flex items-start justify-between gap-4
+                "
               >
 
-                <span className="text-blue-400 font-bold mr-3">
+                <div>
 
-                  {verseNumber}
+                  <span className="text-blue-400 font-bold mr-3">
 
-                </span>
+                    {verseNumber}
 
-                <span className="text-gray-200 text-lg leading-9">
+                  </span>
+
+                  <span className="text-gray-200 text-lg leading-9">
+
+                    {
+                      (verse as any)[translation]
+                    }
+
+                  </span>
+
+                </div>
+
+                <button
+                  onClick={() =>
+                    toggleFavorite(
+                      `${book}-${chapter}-${verseNumber}`
+                    )
+                  }
+                  className="
+                    text-2xl
+                    transition
+                    hover:scale-110
+                  "
+                >
 
                   {
-                    (verse as any)[translation]
-                  
+                    favorites.includes(
+                      `${book}-${chapter}-${verseNumber}`
+                    )
+                      ? "⭐"
+                      : "☆"
                   }
 
-                </span>
+                </button>
 
               </div>
 

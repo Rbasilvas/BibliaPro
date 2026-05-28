@@ -10,6 +10,8 @@ import {
   NotebookPen,
   AudioLines,
   Settings,
+  Star,
+  ScrollText,
   ChevronDown,
   ChevronRight,
 } from "lucide-react";
@@ -164,6 +166,48 @@ export default function Sidebar() {
           )}
 
         </div>
+
+        {/* ESBOÇOS */}
+        <Link
+          href="/esbocos"
+          className="
+            flex items-center gap-3
+            w-full p-4 rounded-2xl
+            hover:bg-[#1b2233]
+            transition
+          "
+        >
+
+          <ScrollText size={22} />
+
+          <span>
+
+            Esboços
+
+          </span>
+
+        </Link>
+
+        {/* FAVORITOS */}
+        <Link
+          href="/favoritos"
+          className="
+            flex items-center gap-3
+            w-full p-4 rounded-2xl
+            hover:bg-[#1b2233]
+            transition
+          "
+        >
+
+          <Star size={22} />
+
+          <span>
+
+            Favoritos
+
+          </span>
+
+        </Link>
 
         {/* ÁUDIO */}
         <button className="flex items-center gap-3 w-full p-4 rounded-2xl hover:bg-[#1b2233] transition">
