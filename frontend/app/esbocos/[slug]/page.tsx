@@ -1,70 +1,10 @@
+import esbocosJson from "@/data/esbocos.json";
+
 interface Props {
   params: {
     slug: string;
   };
 }
-
-const esbocos = {
-  fe: {
-    categoria: "Fé",
-    titulo: "A Fé que Move Montanhas",
-    texto: "Mateus 17:20",
-    introducao:
-      "Jesus ensina que a fé verdadeira possui poder espiritual capaz de remover obstáculos impossíveis aos olhos humanos.",
-    topicos: [
-      "A Fé Precisa Ser Exercitada",
-      "A Fé Vence o Medo",
-      "A Fé Produz Milagres",
-    ],
-    conclusao:
-      "A fé bíblica não é apenas sentimento, mas confiança ativa no poder e na fidelidade de Deus.",
-  },
-
-  oracao: {
-    categoria: "Oração",
-    titulo: "O Poder da Oração",
-    texto: "Tiago 5:16",
-    introducao:
-      "A oração é uma das maiores armas espirituais entregues ao cristão.",
-    topicos: [
-      "A oração aproxima de Deus",
-      "A oração fortalece a fé",
-      "A oração produz resultados",
-    ],
-    conclusao:
-      "Uma vida de oração constante transforma o relacionamento com Deus.",
-  },
-
-  chamado: {
-    categoria: "Chamado",
-    titulo: "Chamado de Moisés",
-    texto: "Êxodo 3",
-    introducao:
-      "Deus chama pessoas comuns para missões extraordinárias.",
-    topicos: [
-      "Deus vê o potencial",
-      "Deus capacita os escolhidos",
-      "A obediência libera propósito",
-    ],
-    conclusao:
-      "O chamado de Deus sempre vem acompanhado de Sua capacitação.",
-  },
-
-  pastor: {
-    categoria: "Jesus",
-    titulo: "O Bom Pastor",
-    texto: "João 10:11",
-    introducao:
-      "Jesus apresenta-se como o pastor que cuida e protege suas ovelhas.",
-    topicos: [
-      "O pastor conhece suas ovelhas",
-      "O pastor protege o rebanho",
-      "O pastor entrega sua vida",
-    ],
-    conclusao:
-      "Cristo continua guiando seu povo com amor e fidelidade.",
-  },
-};
 
 export default async function EsbocoPage({
   params,
@@ -76,11 +16,9 @@ export default async function EsbocoPage({
 
   const { slug } = await params;
 
-  const esboco =
-    esbocos[
-      slug as keyof typeof esbocos
-    ];
-
+const esboco = esbocosJson.find(
+  (item) => item.slug === slug
+);
   if (!esboco) {
 
     return (
