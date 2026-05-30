@@ -168,25 +168,40 @@ export default function Sidebar() {
         </div>
 
         {/* ESBOÇOS */}
-        <Link
-          href="/esbocos"
-          className="
-            flex items-center gap-3
-            w-full p-4 rounded-2xl
-            hover:bg-[#1b2233]
-            transition
-          "
-        >
+        <div>
 
-          <ScrollText size={22} />
+          <Link
+            href="/esbocos"
+            className="
+              flex items-center gap-3
+              w-full p-4 rounded-2xl
+              hover:bg-[#1b2233]
+              transition
+            "
+          >
 
-          <span>
+            <ScrollText size={22} />
 
-            Esboços
+            <span>
 
-          </span>
+              Esboços
 
-        </Link>
+            </span>
+
+          </Link>
+
+          <div className="ml-10 space-y-2">
+
+            <Link
+              href="/esbocos/categorias"
+              className="block text-gray-400 hover:text-white"
+            >
+              Categorias
+            </Link>
+
+          </div>
+
+        </div>
 
         {/* FAVORITOS */}
         <Link
